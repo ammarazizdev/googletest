@@ -3171,6 +3171,21 @@ command-line flag, where `LEVEL` is a string with three possible values:
     omit the stack traces in "uninteresting call" warnings. This is the default.
 *   `error`: gMock will print errors only (least verbose).
 
+{: .callout .note}
+NOTE: gMock reads its command-line flags (such as `--gmock_verbose`) when your
+test program calls `::testing::InitGoogleMock(&argc, argv)`, or when it is
+linked with `gmock_main`, which does this for you. Unless GoogleTest is built
+with Abseil Flags, `InitGoogleTest()` only parses GoogleTest's own flags, so if
+your `main()` calls it instead, gMock flags on the command line are ignored.
+`InitGoogleMock()` also initializes GoogleTest, so you don't need to call both:
+
+```cpp
+int main(int argc, char** argv) {
+  ::testing::InitGoogleMock(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+```
+
 Alternatively, you can adjust the value of that flag from within your tests like
 so:
 

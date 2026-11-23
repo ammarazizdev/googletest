@@ -239,3 +239,8 @@ it.
 | :----------------------------- | :---------------------------------------- |
 | `--gmock_catch_leaked_mocks=0` | Don't report leaked mock objects as failures. |
 | `--gmock_verbose=LEVEL` | Sets the default verbosity level (`info`, `warning`, or `error`) of Google Mock messages. |
+
+These flags are read when your test program calls
+`::testing::InitGoogleMock(&argc, argv)` (which also initializes GoogleTest) or
+is linked with `gmock_main`. Unless GoogleTest is built with Abseil Flags,
+calling only `InitGoogleTest()` does not parse them.
